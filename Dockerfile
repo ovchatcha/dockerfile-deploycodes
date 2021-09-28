@@ -1,6 +1,5 @@
-FROM centos:latest
-
-RUN yum install httpd -y
-COPY index.html /var/www/html/
-CMD /usr/sbin/httpd -DFOREGROUND
+FROM httpd:2.4
+COPY ./public-html/ /usr/local/apache2/htdocs/
 EXPOSE 80
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
